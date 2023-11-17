@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+		window.opener = true;
+	</script>
+</head>
+<style>
+    .info>li{
+        font-size: 0.4em;
+    }
+</style>
+<body>
+		<script>
+			
+			function isNumeric(input) {
+    			// 숫자 형식의 문자열인지 검사
+    			return /^[0-9]+$/.test(input);
+}
+			function validForm(){ // form의 모든 값이 입력되었는지 확인하는 함수
+			// 성명,전화번호, 비밀번호 확인
+			var name = document.forms["inputForm"]["name"].value;
+			var phone = document.forms["inputForm"]["phone"].value;
+			var pwd = document.forms["inputForm"]["pwd"].value;
+			var pwdCon = document.forms["inputForm"]["pwdCon"].value;
+			var check = document.getElementById("check");
+			var is_checked = false;
+			
+			
+			if(check.checked) is_checked =true;
+			if(name==""){
+				alert("이름을 입력하십시오.")
+				inputForm.name.focus();
+				return false;
+			}
+			if(phone==""){
+				alert("전화번호를 입력하십시오.")
+				inputForm.phone.focus();
+				return false;
+			}
+			if(pwd==""){
+				alert("비밀번호를 입력하십시오.")
+				inputForm.pwd.focus();
+				return false;
+			}
+			if(!is_checked){
+				alert("개인정보 수집항목에 동의하지 않았습니다.")
+				inputForm.check.focus();
+				return false;
+			}
+			// 비밀번호가 5자리 인지 확인
+			if(pwd.length!=5) {
+				alert("비밀번호는 숫자 5자리이어야 합니다.")
+				inputForm.pwd.focus(); // 비밀번호창으로 이동
+				return false;
+			}
+			// 비밀번호와 비밀번호 확인이 일치하는지 확인
+			if(pwd!=pwdCon){
+				alert("비밀번호를 재확인하세요")
+				inputForm.pwdCon.focus();
+				return false;
+			}
+			if(!isNumeric(pwd)){
+				alert("비밀번호는 숫자로만 입력해주세요.")
+				inputForm.pwd.focus();
+				return false;
+			}
+			// 필수입력 항목이 비어있는지 확인
+			if(name==""||phone==""||pwd==""||pwdCon==""||!is_checked){
+				alert("*로 표시된 항목은 필수 입력 항목입니다.")
+				return false;
+			}
+			
+			alert("등록완료!")
+			return true;
+		
+			}
+			
+		</script>
+    <h3>승차권 예약</h3>
+    <ul class="info">
+        <li>발행 받은 승차권의 반환, 재발권 등에 필요한 정보를 입력하여 주십시오.</li>
+        <li>개인정보보호를 위해 발권내역 조회 시에는 비밀번확 일치하는 내역만 조회됩니다.
+            <br>(단, 비밀번호를 입력하지 않은 기존의 기록은 비밀번호 없이 조회가 가능합니다.)
+        </li>
+    </ul>
+    <form name="inputForm" target="_blank" action="Payment.jsp">
+    <div class="inputInfo">
+		<span style="text-align: right;">* 은 필수 입력 사항입니다.</span><br> 
+		<table border width="60%">
+			<col width="20%">
+			<col width="80%">
+			<tr><td><label>* 성명</label></td><td><input type="text" name="name"><span style="font-size: 0.3em; color: red;">*성명,전화번호,비밀번호는 반환,승차권 확인을 위한 필수 정보이니 정확히 입력하십시오</span></td></tr>
+			<tr><td><label>* 전화번호</label></td><td><input type="text" maxlength="11" name="phone"></td></tr>
+			<tr><td><label>이메일</label></td><td><input type="email" name="email"></td></tr>
+			<tr><td><label>* 비밀번호(숫자5자리)</label></td><td><input type="password" maxlength="5" name="pwd"></td></tr>
+			<tr><td><label>* 비밀번호 확인</label></td><td><input type="password" maxlength="5" name="pwdCon"></td></tr>
+			<tr><td><label>* 개인정보 수집 이용 등록 동의여부</label></td><td><input type="checkbox" value="동의합니다." id="check">동의합니다.</td></tr>
+		</table>
+		<input type="submit" value="신청하기" onclick="return validForm()" >
+		<input type="reset" value="초기화">
+	
+	</form>
+       
+        
+         
+    </div>
+</body>
+</html>
